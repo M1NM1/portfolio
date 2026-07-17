@@ -24,6 +24,98 @@
     .nav-link::after { content: ''; display: block; width: 0; height: 1px; background: #B78A3E; transition: width .25s; margin-top: 4px; }
     .nav-link:hover::after { width: 100%; }
     .modal-open { overflow: hidden; }
+
+    /* === TIMELINE FIX === */
+    #timeline { position: relative; }
+    
+    /* Mobile: single-column layout with dot on the left */
+    #timeline::before {
+      left: 7px;
+      transform: none;
+    }
+    
+    .timeline-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0;
+      margin-bottom: 2.5rem;
+    }
+    
+    .timeline-item > span.absolute {
+      position: relative !important;
+      left: auto !important;
+      top: auto !important;
+      transform: none !important;
+      grid-column: 1;
+      grid-row: 1;
+      align-self: start;
+      margin-top: 0.5rem;
+      flex-shrink: 0;
+    }
+    
+    .timeline-item > div:first-of-type,
+    .timeline-item > div.order-2,
+    .timeline-item > div.order-1 {
+      grid-column: 2;
+      grid-row: 1;
+      padding-left: 1.5rem !important;
+      padding-right: 0 !important;
+      text-align: left !important;
+      order: unset !important;
+    }
+    
+    .timeline-item > div:last-child:not(.order-1):not(.order-2),
+    .timeline-item > div.pl-8,
+    .timeline-item > div.md\:pl-12 {
+      grid-column: 2;
+      grid-row: 2;
+      padding-left: 1.5rem !important;
+      padding-top: 0.5rem;
+    }
+    
+    @media (max-width: 767px) {
+      .timeline-item .order-1, .timeline-item .order-2 { order: unset !important; }
+      .timeline-item .md\:text-right { text-align: left !important; }
+      .timeline-item .md\:pr-12 { padding-right: 0 !important; }
+    }
+    
+    /* Desktop: restore alternating two-column layout */
+    @media (min-width: 768px) {
+      #timeline::before {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+      }
+      
+      .timeline-item {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.75rem;
+      }
+      
+      .timeline-item > span.absolute {
+        position: absolute !important;
+        left: 50% !important;
+        top: 0.5rem !important;
+        transform: translateX(-50%) !important;
+        grid-column: unset;
+        grid-row: unset;
+      }
+      
+      .timeline-item > div:first-of-type,
+      .timeline-item > div.order-2,
+      .timeline-item > div.order-1 {
+        grid-column: unset;
+        grid-row: unset;
+        padding-left: unset !important;
+      }
+      
+      .timeline-item > div:last-child:not(.order-1):not(.order-2),
+      .timeline-item > div.pl-8,
+      .timeline-item > div.md\:pl-12 {
+        grid-column: unset;
+        grid-row: unset;
+        padding-left: unset !important;
+      }
+    }
   </style>
 </head>
 <body class="bg-cream font-body text-ink antialiased">
